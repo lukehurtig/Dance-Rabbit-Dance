@@ -15,6 +15,8 @@ namespace Dance_Rabbit_Dance
 
         private short animationFrame = 0;
 
+        private bool animationState = false;
+
         public Vector2 Position;
 
         public int Score = 0;
@@ -22,11 +24,6 @@ namespace Dance_Rabbit_Dance
         public void LoadContent(ContentManager content)
         {
             texture = content.Load<Texture2D>("Wabbit (1)");
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -43,8 +40,16 @@ namespace Dance_Rabbit_Dance
             }
 
             var source = new Rectangle(0, 0, 90, 90);
-            if (Score >= 40) source = new Rectangle(animationFrame * 90, 0, 90, 90);
-            if (Score >= 200) source = new Rectangle(animationFrame * 90, 90, 90, 90);
+
+            if (Score >= 100)
+            {
+                animationState = !animationState;
+                Score -= 100;
+            }
+
+            if (animationState) source = new Rectangle(animationFrame * 90, 0, 90, 90);
+            else source = new Rectangle(animationFrame * 90, 90, 90, 90);
+
             //spriteBatch.Draw(texture, Position, source, Color.White);
             spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
         }

@@ -29,6 +29,10 @@ namespace Dance_Rabbit_Dance
 
         private BoundingRectangle bounds;
 
+        public bool Active = false;
+
+        public int Score = 0;
+
         public Color Color { get; set; } = Color.White;
 
         public BoundingRectangle Bounds => bounds;
@@ -38,7 +42,7 @@ namespace Dance_Rabbit_Dance
             this.position = Position;
             this.dir = Dir;
             this.prop = Prop;
-            this.bounds = new BoundingRectangle(position, 40, 40);
+            this.bounds = new BoundingRectangle(position, 20, 20);
         }
 
         public void LoadContent(ContentManager content)
@@ -59,7 +63,10 @@ namespace Dance_Rabbit_Dance
 
         public void Update(GameTime gameTime)
         {
-            
+            if (Active && position.Y < 520)
+            {
+                position.Y += (3 + Score / 10);
+            }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)

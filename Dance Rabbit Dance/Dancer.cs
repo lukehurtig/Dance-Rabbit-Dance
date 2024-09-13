@@ -27,11 +27,6 @@ namespace Dance_Rabbit_Dance
             texture = content.Load<Texture2D>("DancingBoy (1)");
         }
 
-        public void Update(GameTime gameTime)
-        {
-            
-        }
-
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             // Update animation timer
