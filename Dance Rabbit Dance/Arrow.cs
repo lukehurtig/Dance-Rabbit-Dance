@@ -23,7 +23,7 @@ namespace Dance_Rabbit_Dance
 
         private Vector2 position;
 
-        private Direction dir;
+        public Direction Dir;
 
         private bool prop;
 
@@ -40,16 +40,16 @@ namespace Dance_Rabbit_Dance
         public Arrow(Vector2 Position, Direction Dir, bool Prop)
         {
             this.position = Position;
-            this.dir = Dir;
+            this.Dir = Dir;
             this.prop = Prop;
-            this.bounds = new BoundingRectangle(position, 20, 20);
+            this.bounds = new BoundingRectangle(position, 40, 40);
         }
 
         public void LoadContent(ContentManager content)
         {
             if(prop)
             {
-                texture = dir switch
+                texture = Dir switch
                 {
                     Direction.Up => content.Load<Texture2D>("UP"),
                     Direction.Left => content.Load<Texture2D>("Left"),
@@ -63,24 +63,32 @@ namespace Dance_Rabbit_Dance
 
         public void Update(GameTime gameTime)
         {
-            if (Active && position.Y < 520)
+            if (Active)
             {
-                position.Y += (3 + Score / 10);
+                position.Y += (3 + Score / 10);        
+                bounds.Y = position.Y;
             }
         }
 
         public void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             var source = new Rectangle(0, 0, 80, 80);
-            if (!prop) source = dir switch
+            if (!prop) source = Dir switch
             {
-                Direction.Up => new Rectangle(80, 0, 80, 80),
-                Direction.Left => new Rectangle(160, 0, 80, 80),
-                Direction.Down => new Rectangle(240, 0, 80, 80),
+                Direction.Up => new Rectangle(0, 80, 80, 80),
+                Direction.Left => new Rectangle(0, 160, 80, 80),
+                Direction.Down => new Rectangle(0, 240, 80, 80),
                 _ => new Rectangle(0, 0, 80, 80),
             };
             //spriteBatch.Draw(texture, Position, source, Color.White);
-            spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, position, source, Color.White, 0, new Vector2(49, 49), 1.5f, SpriteEffects.None, 0);
+        }
+
+        public void Reset()
+        {
+            bounds.Y = -120;
+            position.Y = -120;
+            Active = false;
         }
     }
 }

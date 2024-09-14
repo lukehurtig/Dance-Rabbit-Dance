@@ -51,7 +51,7 @@ namespace Dance_Rabbit_Dance
             else source = new Rectangle(animationFrame * 90, 90, 90, 90);
 
             //spriteBatch.Draw(texture, Position, source, Color.White);
-            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(55, 55), 1.5f, SpriteEffects.None, 0);
         }
     }
 }

@@ -12,8 +12,6 @@ namespace Dance_Rabbit_Dance
     {
         private Texture2D texture;
 
-        private double directionTimer;
-
         private double animationTimer;
 
         private short animationFrame = 0;
@@ -42,7 +40,7 @@ namespace Dance_Rabbit_Dance
 
             var source = new Rectangle(animationFrame * 90, 0, 90, 90);
             //spriteBatch.Draw(texture, Position, source, Color.White);
-            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(0, 0), 1.5f, SpriteEffects.None, 0);
+            spriteBatch.Draw(texture, Position, source, Color.White, 0, new Vector2(57, 57), 1.5f, SpriteEffects.None, 0);
         }
     }
 }
