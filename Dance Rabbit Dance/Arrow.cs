@@ -65,7 +65,7 @@ namespace Dance_Rabbit_Dance
         {
             if (Active)
             {
-                position.Y += (3 + Score / 10);        
+                position.Y += 3 + (float)(Math.Log((Score / 10) + 1) * 1.5);  // Adjust '2' for scaling      
                 bounds.Y = position.Y;
             }
         }

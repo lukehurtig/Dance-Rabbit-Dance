@@ -31,12 +31,13 @@ namespace Dance_Rabbit_Dance
             // Update animation timer
             animationTimer += gameTime.ElapsedGameTime.TotalSeconds;
 
+            double progressionFactor = (0.05 + (0.2 / (1 + Math.Log((Score / 10) + 1))));
             //Update animation frame
-            if (animationTimer > (0.05 + (.5 - (Score + 1 / 2 * Score))))
+            if (animationTimer > progressionFactor)
             {
                 animationFrame++;
                 if (animationFrame > 3) animationFrame = 0;
-                animationTimer -= (0.05 + (.5 - (Score + 1 / 2 * Score)));
+                animationTimer -= progressionFactor;  // Smooths the time decrease
             }
 
             var source = new Rectangle(0, 0, 90, 90);
