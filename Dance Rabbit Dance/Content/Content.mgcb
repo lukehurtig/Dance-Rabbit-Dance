@@ -13,6 +13,48 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin 212692__stumber__scratch-3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:212692__stumber__scratch-3.wav
+
+#begin 385873__waveplaysfx__kick-generic-techno-kick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:385873__waveplaysfx__kick-generic-techno-kick.wav
+
+#begin 399747__nbmusic098__trap-snare-1.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:399747__nbmusic098__trap-snare-1.wav
+
+#begin 416928__drfx__finger-snap.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:416928__drfx__finger-snap.wav
+
+#begin 467758__sgak__scrach2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:467758__sgak__scrach2.wav
+
+#begin 494903__gigala__scratchimpact.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:494903__gigala__scratchimpact.wav
+
+#begin ANAVAN - Chicken and Cheese 2 (Foot Village cover).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:ANAVAN - Chicken and Cheese 2 (Foot Village cover).mp3
+
 #begin Bangers.spritefont
 /importer:FontDescriptionImporter
 /processor:LocalizedFontProcessor
@@ -80,6 +122,18 @@
 /processorParam:TextureFormat=Color
 /build:DRD.png
 
+#begin HoliznaPATREON - Lofi Relic.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:HoliznaPATREON - Lofi Relic.mp3
+
+#begin John Bartmann - Lofi Jam.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:John Bartmann - Lofi Jam.mp3
+
 #begin Left.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -91,6 +145,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Left.png
+
+#begin Lo-Fi Astronaut - Phasing ( LoFi , Peaceful ).mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Lo-Fi Astronaut - Phasing ( LoFi , Peaceful ).mp3
+
+#begin Marcos H. Bolanos - Lofi.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Marcos H. Bolanos - Lofi.mp3
 
 #begin Proj0bg-1.png.png
 /importer:TextureImporter

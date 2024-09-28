@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 
@@ -23,13 +25,25 @@ namespace Dance_Rabbit_Dance
         private Dancer dancer1 = new Dancer();
         private SpriteFont _font;
 
+        private SoundEffect leftArrow;
+        private SoundEffect rightArrow;
+        private SoundEffect upArrow;
+        private SoundEffect downArrow1;
+        private SoundEffect downArrow2;
+        private SoundEffect downArrow3;
+        private Song song1;
+        private Song song2;
+        private Song song3;
+        private Song song4;
+        private Song finalSong;
+
         private string _text = "Press Esc or Back Button to Exit\n" +
             "Press Enter or Start to Play!";
         private int score = 0;
         private bool start = false;
         private float initialInterval = 2.0f;
         private float minInterval = 0.2f;
-        private float decreaseRate = 0.97f;
+        private float decreaseRate = 0.99f;
         private float currentInterval;
         private double launchTime = 0;
 
@@ -92,6 +106,21 @@ namespace Dance_Rabbit_Dance
             background = Content.Load<Texture2D>("Proj0bg-1.png");
             logo = Content.Load<Texture2D>("DRD");
             _font = Content.Load<SpriteFont>("Bangers");
+            leftArrow = Content.Load<SoundEffect>("385873__waveplaysfx__kick-generic-techno-kick");
+            rightArrow = Content.Load<SoundEffect>("399747__nbmusic098__trap-snare-1");
+            upArrow = Content.Load<SoundEffect>("416928__drfx__finger-snap");
+            downArrow1 = Content.Load<SoundEffect>("494903__gigala__scratchimpact");
+            downArrow2 = Content.Load<SoundEffect>("467758__sgak__scrach2");
+            downArrow3 = Content.Load<SoundEffect>("212692__stumber__scratch-3");
+            song1 = Content.Load<Song>("Marcos H. Bolanos - Lofi");
+            song2 = Content.Load<Song>("Lo-Fi Astronaut - Phasing ( LoFi , Peaceful )");
+            song3 = Content.Load<Song>("HoliznaPATREON - Lofi Relic");
+            song4 = Content.Load<Song>("John Bartmann - Lofi Jam");
+            finalSong = Content.Load<Song>("ANAVAN - Chicken and Cheese 2 (Foot Village cover)");
+
+            MediaPlayer.IsRepeating = true;
+            MediaPlayer.Play(finalSong);
+
         }
 
         protected override void Update(GameTime gameTime)
@@ -106,6 +135,7 @@ namespace Dance_Rabbit_Dance
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     start = true;
+                    MediaPlayer.Play(song2);
                     currentInterval = initialInterval;
                 }
             }
@@ -137,6 +167,7 @@ namespace Dance_Rabbit_Dance
                                 {
                                     arrow.Reset();
                                     score += 10;
+                                    rightArrow.Play();
                                     UpdateScores();
                                 }
                             }
@@ -147,6 +178,7 @@ namespace Dance_Rabbit_Dance
                                 {
                                     arrow.Reset();
                                     score += 10;
+                                    leftArrow.Play();
                                     UpdateScores();
                                 }
                             }
@@ -157,6 +189,7 @@ namespace Dance_Rabbit_Dance
                                 {
                                     arrow.Reset();
                                     score += 10;
+                                    upArrow.Play();
                                     UpdateScores();
                                 }
                             }
@@ -167,6 +200,9 @@ namespace Dance_Rabbit_Dance
                                 {
                                     arrow.Reset();
                                     score += 10;
+                                    if(score % 20 == 0) downArrow1.Play();
+                                    else if(score % 30 == 0) downArrow2.Play();
+                                    else downArrow3.Play();
                                     UpdateScores();
                                 }
                             }
