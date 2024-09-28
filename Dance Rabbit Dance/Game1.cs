@@ -18,6 +18,9 @@ namespace Dance_Rabbit_Dance
 
         private Texture2D background;
         private Texture2D logo;
+        private Texture2D carrot1;
+        private Texture2D carrot2;
+        private Texture2D carrot3;
         private List<Arrow> propArrows;
         private List<Arrow> arrows;
         private Wabbit wabbit = new Wabbit();
@@ -40,6 +43,7 @@ namespace Dance_Rabbit_Dance
         private string _text = "Press Esc or Back Button to Exit\n" +
             "Press Enter or Start to Play!";
         private int score = 0;
+        private int lives;
         private bool start = false;
         private float initialInterval = 2.0f;
         private float minInterval = 0.2f;
@@ -105,6 +109,10 @@ namespace Dance_Rabbit_Dance
             dancer1.LoadContent(Content);
             background = Content.Load<Texture2D>("Proj0bg-1.png");
             logo = Content.Load<Texture2D>("DRD");
+            carrot1 = Content.Load<Texture2D>("Carrot");
+            carrot2 = Content.Load<Texture2D>("Carrot");
+            carrot3 = Content.Load<Texture2D>("Carrot");
+
             _font = Content.Load<SpriteFont>("Bangers");
             leftArrow = Content.Load<SoundEffect>("385873__waveplaysfx__kick-generic-techno-kick");
             rightArrow = Content.Load<SoundEffect>("399747__nbmusic098__trap-snare-1");
@@ -135,6 +143,7 @@ namespace Dance_Rabbit_Dance
                 if (GamePad.GetState(PlayerIndex.One).Buttons.Start == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Enter))
                 {
                     start = true;
+                    lives = 3;
                     MediaPlayer.Play(song2);
                     currentInterval = initialInterval;
                 }
@@ -162,8 +171,8 @@ namespace Dance_Rabbit_Dance
                         {
                             if (arrow.Dir == Direction.Right) 
                             {
-                                if (Keyboard.GetState().IsKeyDown(Keys.Right) || GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed
-                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
+                                if ((Keyboard.GetState().IsKeyDown(Keys.Right) || GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed
+                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0) && OnlyArrowKeyPressed())
                                 {
                                     arrow.Reset();
                                     score += 10;
@@ -173,8 +182,8 @@ namespace Dance_Rabbit_Dance
                             }
                             else if (arrow.Dir == Direction.Left)
                             {
-                                if (Keyboard.GetState().IsKeyDown(Keys.Left) || GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
-                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0)
+                                if ((Keyboard.GetState().IsKeyDown(Keys.Left) || GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0) && OnlyArrowKeyPressed())
                                 {
                                     arrow.Reset();
                                     score += 10;
@@ -184,8 +193,8 @@ namespace Dance_Rabbit_Dance
                             }
                             else if (arrow.Dir == Direction.Up)
                             {
-                                if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed
-                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0)
+                                if ((Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed
+                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0) && OnlyArrowKeyPressed())
                                 {
                                     arrow.Reset();
                                     score += 10;
@@ -195,8 +204,8 @@ namespace Dance_Rabbit_Dance
                             }
                             else if (arrow.Dir == Direction.Down)
                             {
-                                if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed
-                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0)
+                                if ((Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed
+                                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0) && OnlyArrowKeyPressed())
                                 {
                                     arrow.Reset();
                                     score += 10;
@@ -205,6 +214,19 @@ namespace Dance_Rabbit_Dance
                                     else downArrow3.Play();
                                     UpdateScores();
                                 }
+                            }
+                        }
+
+                        else if (arrow.Bounds.Top > 500)
+                        {
+                            lives--;
+                            arrow.Reset();
+
+                            if (lives == 0)
+                            {
+                                start = false;
+
+                                MediaPlayer.Play(finalSong);
                             }
                         }
                     }
@@ -229,6 +251,9 @@ namespace Dance_Rabbit_Dance
             if (!start) _spriteBatch.Draw(logo, new Vector2(VIEWPORT_WIDTH * 0.5f - 220, 20), new Rectangle(0, 0, 400, 213), Color.White);
             if (!start) _spriteBatch.DrawString(_font, "Press Esc or Back Button to Exit\nPress Enter or Start to Play!", new Vector2(VIEWPORT_WIDTH * 0.5f - 170, VIEWPORT_HEIGHT * 0.74f), Color.WhiteSmoke);
             if (start) _spriteBatch.DrawString(_font, $"Score: {score}", new Vector2(20, 20), Color.Gold);
+            if (start && lives >= 1) _spriteBatch.Draw(carrot1, new Vector2(VIEWPORT_WIDTH - 108, 0), new Rectangle(0, 0, 36, 36), Color.White);
+            if (start && lives >= 2) _spriteBatch.Draw(carrot2, new Vector2(VIEWPORT_WIDTH - 144, 0), new Rectangle(0, 0, 36, 36), Color.White);
+            if (start && lives == 3) _spriteBatch.Draw(carrot3, new Vector2(VIEWPORT_WIDTH - 180, 0), new Rectangle(0, 0, 36, 36), Color.White);
             _spriteBatch.End();
             base.Draw(gameTime);
         }
@@ -239,6 +264,36 @@ namespace Dance_Rabbit_Dance
             wabbit.Score = score;
             dancer.Score = score;
             dancer1.Score = score;
+        }
+
+        private bool OnlyArrowKeyPressed()
+        {
+            bool check = false;
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || GamePad.GetState(PlayerIndex.One).DPad.Right == ButtonState.Pressed
+                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X > 0)
+            {
+                check = true;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Left) || GamePad.GetState(PlayerIndex.One).DPad.Left == ButtonState.Pressed
+                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.X < 0)
+            {
+                if (check) return false;
+                check = true;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Up) || GamePad.GetState(PlayerIndex.One).DPad.Up == ButtonState.Pressed
+                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y < 0)
+            {
+                if (check) return false;
+                check = true;
+            }
+            if (Keyboard.GetState().IsKeyDown(Keys.Down) || GamePad.GetState(PlayerIndex.One).DPad.Down == ButtonState.Pressed
+                || GamePad.GetState(PlayerIndex.One).ThumbSticks.Left.Y > 0)
+            {
+                if (!check) return true;
+            }
+
+            return check;
         }
     }
 }
